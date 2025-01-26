@@ -66,7 +66,7 @@ const StockList = ({ onEditStock }) => {
 
     // Clear interval on component unmount
     return () => clearInterval(interval);
-  }, []);  // Empty dependency array to run only once on mount
+  }, [fetchStocks]);  // Add fetchStocks to the dependency array
 
   // Handle deletion of a stock
   const handleDelete = (ticker) => {
