@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 
 const StockList = ({ onEditStock }) => {
   const [stocks, setStocks] = useState([]);
   const [updateStocks, setUpdateStocks] = useState([]);
 
-  // Function to fetch stocks from the backend
-  const fetchStocks = () => {
+  // Use useCallback to memoize the fetchStocks function
+  const fetchStocks = useCallback(() => {
     axios.get('https://spring-capx.onrender.com/api/stocks')
       .then(response => {
         setStocks(response.data);
@@ -15,7 +15,7 @@ const StockList = ({ onEditStock }) => {
       .catch(error => {
         console.error('Error fetching stocks:', error);
       });
-  };
+  }, []); // No dependencies, it only needs to be defined once
 
   // Function to fetch real-time stock prices and calculate profit/loss
   const fetchRealTimePrices = (stocks) => {
