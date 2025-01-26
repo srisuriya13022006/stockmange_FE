@@ -66,7 +66,7 @@ const StockForm = ({ onAddStock, editingStock, onUpdateStock }) => {
     }
 
     if (editingStock) {
-      axios.put(`http://localhost:8080/api/stocks/ticker/${stock.tickerSymbol}`, stock)
+      axios.put(`https://spring-capx.onrender.com/api/stocks/ticker/${stock.tickerSymbol}`, stock)
         .then(response => {
           onUpdateStock(response.data);
         })
@@ -74,7 +74,7 @@ const StockForm = ({ onAddStock, editingStock, onUpdateStock }) => {
           handleBackendError(error);
         });
     } else {
-      axios.post('http://localhost:8080/api/stocks', stock)
+      axios.post('https://spring-capx.onrender.com/api/stocks', stock)
         .then(response => {
           onAddStock(response.data);
         })

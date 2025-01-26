@@ -7,7 +7,7 @@ const StockList = ({ onEditStock }) => {
 
   // Function to fetch stocks from the backend
   const fetchStocks = () => {
-    axios.get('http://localhost:8080/api/stocks')
+    axios.get('https://spring-capx.onrender.com/api/stocks')
       .then(response => {
         setStocks(response.data);
         fetchRealTimePrices(response.data);  // Fetch real-time prices once stocks are loaded
@@ -20,7 +20,7 @@ const StockList = ({ onEditStock }) => {
   // Function to fetch real-time stock prices and calculate profit/loss
   const fetchRealTimePrices = (stocks) => {
     const updatedStockData = stocks.map(stock => {
-      return axios.get(`http://localhost:8080/api/stocks/realtime/${stock.tickerSymbol}`)
+      return axios.get(`https://spring-capx.onrender.com/api/stocks/realtime/${stock.tickerSymbol}`)
         .then(response => {
           const currentPrice = response.data.currentPrice || stock.price; // Fallback to the original price if no current price is available
           const profitOrLoss = currentPrice - stock.price;
@@ -40,7 +40,7 @@ const StockList = ({ onEditStock }) => {
   // Function to update stock price manually using backend API (if needed)
   const updateStockPrice = (ticker) => {
     console.log('Updating stock price for ticker:', ticker);  // Log ticker value for debugging
-    axios.put(`http://localhost:8080/api/stocks/updatePrice/${ticker}`)
+    axios.put(`https://spring-capx.onrender.com/api/stocks/updatePrice/${ticker}`)
       .then(response => {
         console.log('Updated stock data:', response.data);  // Log response data for debugging
         // Update the stock list with the new price
@@ -70,7 +70,7 @@ const StockList = ({ onEditStock }) => {
 
   // Handle deletion of a stock
   const handleDelete = (ticker) => {
-    axios.delete(`http://localhost:8080/api/stocks/${ticker}`)
+    axios.delete(`https://spring-capx.onrender.com/api/stocks/${ticker}`)
       .then(() => {
         // Remove the deleted stock from the UI without needing to re-fetch
         setStocks(stocks.filter(stock => stock.tickerSymbol !== ticker));
